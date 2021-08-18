@@ -1,0 +1,16 @@
+file_path(FileName) ->
+    {ok, Dir} = file:get_cwd(),
+    FullFileName = Dir ++ [$/] ++ FileName,
+    FullFileName.
+
+read_local_file(FileName) ->
+    FullFileName = file_path(FileName),
+    {ok, Binary} = file:read_file(FullFileName),
+    String = unicode:characters_to_list(Binary, utf8),
+    String.
+
+get_mp(Regex) ->
+    re_tuner:mp(Regex).
+	
+get_mp(Regex,Options) ->
+    re_tuner:mp(Regex,Options).	
