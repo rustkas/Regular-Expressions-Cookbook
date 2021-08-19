@@ -2,7 +2,7 @@
 
 ## rebar3 projects related to book's chapters
 
-* Basic Regular Expression Skills
+* [Basic Regular Expression Skills](code/ch02/basic)
     * [2.1. Match Literal Text](code/ch02/basic/lib/recipe_01)
     * [2.2 Match Nonprintable Characters](code/ch02/basic/lib/recipe_02)
     * [2.3 Match One of Many Characters](code/ch02/basic/lib/recipe_03) 
