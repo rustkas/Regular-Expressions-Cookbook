@@ -57,21 +57,23 @@ research_02_05_test() ->
 research_02_06_test() ->
     Regex = "\\w",
     {ok, MP} = re:compile(Regex),
-    List = lists:seq($0, $9) ++ lists:seq($a, $z)++ lists:seq($A, $Z) ++ [$_],
+    List = lists:seq($0, $9) ++ lists:seq($a, $z) ++ lists:seq($A, $Z) ++ [$_],
     lists:foreach(fun(Elem) -> match == re:run([Elem], MP, [{capture, none}]) end,
                   List).
 
 research_02_07_test() ->
     Regex = "\\W",
     {ok, MP} = re:compile(Regex),
-    List = lists:seq(0, 127) -- (lists:seq($0, $9) ++ lists:seq($a, $z)++ lists:seq($A, $Z) ++ [$_]),
+    List =
+        lists:seq(0, 127)
+        -- lists:seq($0, $9) ++ lists:seq($a, $z) ++ lists:seq($A, $Z) ++ [$_],
     lists:foreach(fun(Elem) -> match == re:run([Elem], MP, [{capture, none}]) end,
                   List).
 
 research_02_08_test() ->
     Regex = "[a-zA-Z0-9_]",
     {ok, MP} = re:compile(Regex),
-    List = lists:seq($0, $9) ++ lists:seq($a, $z)++ lists:seq($A, $Z) ++ [$_],
+    List = lists:seq($0, $9) ++ lists:seq($a, $z) ++ lists:seq($A, $Z) ++ [$_],
     lists:foreach(fun(Elem) -> match == re:run([Elem], MP, [{capture, none}]) end,
                   List).
 
@@ -79,7 +81,7 @@ research_03_test() ->
     Expected = [256],
     Text = [256],
     Regex = "\\x{100}",
-    {ok, MP} = re:compile(Regex,[unicode]),
+    {ok, MP} = re:compile(Regex, [unicode]),
     {match, [Result]} = re:run(Text, MP, [{capture, all, list}]),
     %?debugFmt("~p~n",[Result]).
     ?assertEqual(Expected, Result).
@@ -88,14 +90,14 @@ research_04_test() ->
     Expected = [256],
     Text = [256],
     Regex = "\\p{L}",
-    {ok, MP} = re:compile(Regex,[unicode]),
+    {ok, MP} = re:compile(Regex, [unicode]),
     {match, [Result]} = re:run(Text, MP, [{capture, all, list}]),
     %?debugFmt("~p~n",[Result]).
     ?assertEqual(Expected, Result).
 
 research_05_01_test() ->
     Regex = "[a-f0-9]",
-    {ok, MP} = re:compile(Regex,[caseless]),
+    {ok, MP} = re:compile(Regex, [caseless]),
     List = lists:seq(0, 127),
     lists:foreach(fun(Elem) ->
                      HexNumber = sstr:hex(Elem, ""),
@@ -116,45 +118,50 @@ research_05_02_test() ->
 research_05_03_test() ->
     Regex = "(?i)[^A-F0-9]",
     {ok, MP} = re:compile(Regex),
-    List = lists:seq(0, 127) -- (lists:seq($0, $9) ++ lists:seq($a, $f)++ lists:seq($A, $F)),
+    List =
+        lists:seq(0, 127)
+        -- lists:seq($0, $9) ++ lists:seq($a, $f) ++ lists:seq($A, $F),
     lists:foreach(fun(Elem) -> match == re:run([Elem], MP, [{capture, none}]) end,
                   List).
 
 research_06_01_test() ->
     Regex = "[a-zA-Z0-9-[g-zG-Z]]",
     {ok, MP} = re:compile(Regex),
-	List =  lists:seq($a, $z) ++ lists:seq($A, $Z) ++ lists:seq($0, $9) -- lists:seq($g, $z) -- lists:seq($G, $Z),
-	lists:foreach(fun(Elem) -> match == re:run([Elem], MP, [{capture, none}]) end,
+    List =
+        lists:seq($a, $z)
+        ++ lists:seq($A, $Z)
+        ++ lists:seq($0, $9) -- lists:seq($g, $z) -- lists:seq($G, $Z),
+    lists:foreach(fun(Elem) -> match == re:run([Elem], MP, [{capture, none}]) end,
                   List).
 
 research_06_02_test() ->
     Regex = "[a-zA-Z0-9-[g-zG-Z]]",
     {ok, MP} = re:compile(Regex),
-	List =  lists:seq($g, $z) ++ lists:seq($G, $Z),
-	lists:foreach(fun(Elem) -> nomatch == re:run([Elem], MP, [{capture, none}]) end,
+    List = lists:seq($g, $z) ++ lists:seq($G, $Z),
+    lists:foreach(fun(Elem) -> nomatch == re:run([Elem], MP, [{capture, none}]) end,
                   List).
 
 research_07_01_test() ->
     Regex = "[\\p{Thai}-[\\P{N}]]",
-    {ok, _MP} = re:compile(Regex,[unicode]).
+    {ok, _MP} = re:compile(Regex, [unicode]).
 
 research_08_01_test() ->
     Regex = "[a-f[A-F][0-9]]",
     {ok, MP} = re:compile(Regex),
-    List = lists:seq($0, $9) ++ lists:seq($a, $z)++ lists:seq($A, $Z),
+    List = lists:seq($0, $9) ++ lists:seq($a, $z) ++ lists:seq($A, $Z),
     lists:foreach(fun(Elem) -> match == re:run([Elem], MP, [{capture, none}]) end,
                   List).
 
 research_08_02_test() ->
     Regex = "[a-f[A-F[0-9]]]",
     {ok, MP} = re:compile(Regex),
-    List = lists:seq($0, $9) ++ lists:seq($a, $z)++ lists:seq($A, $Z),
+    List = lists:seq($0, $9) ++ lists:seq($a, $z) ++ lists:seq($A, $Z),
     lists:foreach(fun(Elem) -> match == re:run([Elem], MP, [{capture, none}]) end,
                   List).
 
 research_08_03_test() ->
     Regex = "[\\w&&[a-fA-F0-9\\s]]",
-    {ok, MP} = re:compile(Regex,[caseless]),
+    {ok, MP} = re:compile(Regex, [caseless]),
     List = lists:seq(0, 255),
     lists:foreach(fun(Elem) ->
                      HexNumber = sstr:hex(Elem, ""),
@@ -164,11 +171,12 @@ research_08_03_test() ->
 
 research_08_04_test() ->
     Regex = "[a-zA-Z0-9&&[^g-zG-Z]]",
-    {ok, MP} = re:compile(Regex,[caseless]),
+    {ok, MP} = re:compile(Regex, [caseless]),
     List = lists:seq(0, 255),
     lists:foreach(fun(Elem) ->
                      HexNumber = sstr:hex(Elem, ""),
                      match == re:run(HexNumber, MP, [{capture, none}])
                   end,
-                  List).				  
+                  List).
+
 -endif.
