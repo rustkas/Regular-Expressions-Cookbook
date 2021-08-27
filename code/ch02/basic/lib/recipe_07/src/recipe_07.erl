@@ -59,33 +59,33 @@ research_04_01_test() ->
     Result = Range,
     ?assertEqual(Expected, Result).
 
-research_04_02_test0()->
+research_04_02_test0() ->
     Expected = true,
     List = lists:seq(16#370, 16#3FF),
     Regex = re_tuner:unicode_block("\\p{InGreekandCoptic}"),
-	?debugFmt("Regex = ~p~n",[Regex]),
+    ?debugFmt("Regex = ~p~n", [Regex]),
     {ok, MP} = re:compile(Regex, [unicode]),
     Result =
         lists:all(fun(Elem) ->
                      Text = [Elem],
-					 ?debugFmt("Letter = ~ts, Value =~.16B  ",[Text,Elem]),
+                     ?debugFmt("Letter = ~ts, Value =~.16B  ", [Text, Elem]),
                      match == re:run(Text, MP, [{capture, none}])
                   end,
                   List),
-    ?assertEqual(Expected, Result).	
+    ?assertEqual(Expected, Result).
 
 research_04_02_test() ->
     Expected = "Α",
-	Elem = 16#391,
-	Text = [Elem],
+    Elem = 16#391,
+    Text = [Elem],
     Text = [16#391],
-	Text = Expected,
+    Text = Expected,
     Regex = re_tuner:unicode_block("\\p{InGreekandCoptic}"),
     %?debugFmt("Regex = ~p", [Regex]),
-	{ok, MP} = re:compile(Regex, [unicode]),
-	
-	[TextValue] = Text,
-	%?debugFmt("Text = ~ts, Value = ~.16B", [Text,TextValue]),
+    {ok, MP} = re:compile(Regex, [unicode]),
+
+    [TextValue] = Text,
+    %?debugFmt("Text = ~ts, Value = ~.16B", [Text,TextValue]),
     {match, [Result]} = re:run(Text, MP, [{capture, first, list}]),
     ?assertEqual(Expected, Result).
 
@@ -100,12 +100,12 @@ research_04_03_test() ->
 
 % Unicode grapheme
 research_05_01_test() ->
-Expected = [["à"],["à"]],
+    Expected = [["à"], ["à"]],
     Text = [16#E0, 16#61, 16#300],
-	Regex = "\\X",
-	{ok, MP} = re:compile(Regex, [unicode]),
-	{match, Result} = re:run(Text, MP, [global,{capture, first, list}]),
-	%?debugFmt("Result = ~ts",[Result]).
-	?assertEqual(Expected, Result).
+    Regex = "\\X",
+    {ok, MP} = re:compile(Regex, [unicode]),
+    {match, Result} = re:run(Text, MP, [global, {capture, first, list}]),
+    %?debugFmt("Result = ~ts",[Result]).
+    ?assertEqual(Expected, Result).
 
 -endif.
