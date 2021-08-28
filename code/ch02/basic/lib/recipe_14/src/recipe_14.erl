@@ -17,7 +17,8 @@ research_test_() ->
       [fun research_01_01/1,
        fun research_01_02/1,
        fun research_01_03/1,
-       fun research_01_03/1]}}.
+       fun research_01_03/1,
+	   fun research_01_04/1]}}.
 
 make_string() ->
     IntegerList = lists:seq(1, 10),
