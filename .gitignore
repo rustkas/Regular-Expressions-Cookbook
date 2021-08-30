@@ -16,3 +16,4 @@ deps
 _build/
 _checkouts/
 _basic
+doc
