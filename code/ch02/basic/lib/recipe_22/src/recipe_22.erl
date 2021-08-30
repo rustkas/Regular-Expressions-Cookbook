@@ -9,7 +9,7 @@
 
 research_01_test()->
     %Expected = "BSeforeBeforeBeforeMatchAfterAfterAfter",
-	Expected = "Before$`$_$'After",
+    Expected = "Before$`$_$'After",
 	
     Text = "BeforeMatchAfter",
     Regex = "Match",
