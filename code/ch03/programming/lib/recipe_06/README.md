@@ -1,4 +1,5 @@
-recipe_06
+# recipe_06
+## Test Whether a Regex Matches the Subject String Entirely
 =====
 
 An OTP library
