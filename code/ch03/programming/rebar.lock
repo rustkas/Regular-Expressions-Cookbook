@@ -1,12 +1,12 @@
 {"1.2.0",
-[{<<"re_tuner">>,{pkg,<<"re_tuner">>,<<"0.1.12">>},0},
+[{<<"re_tuner">>,{pkg,<<"re_tuner">>,<<"0.1.14">>},0},
  {<<"sstr">>,
   {git,"git://github.com/rustkas/erlang-simple-string.git",
        {ref,"f4a0b1cace9cfcf47e9abf9b1e73772d447b51e4"}},
   0}]}.
 [
 {pkg_hash,[
- {<<"re_tuner">>, <<"6BAB2234130A4B7E9C8569BC48BA03B6380F190124CBAEB1316140032E47AE14">>}]},
+ {<<"re_tuner">>, <<"6772142223DEAB3C3F8A5A6B513330267F599C09392D7B8E86C1DB117D3ABD0D">>}]},
 {pkg_hash_ext,[
- {<<"re_tuner">>, <<"50CF1947CF358F704DB839451E2AF427AA3ADBC483AD4C868128192171FF78C4">>}]}
+ {<<"re_tuner">>, <<"BD4DED951FDAC4555B49F1C979E1BF048CB030FD61FB13E6310C5FFE4DC0568A">>}]}
 ].

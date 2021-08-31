@@ -48,6 +48,29 @@ research_01_03_test()->
 	MP = re_tuner:mp(Regex),
 	Result = first_match_info(Text, MP),
 	?assertEqual(Expected, Result).
+	
+research_02_01_test()->
+	Expected = {12,2},
+	Text = "Do you like 13 or 42?",
+	Regex = "\\d+",
+	Result = re_tuner:first_match_info(Text, Regex),
+	?assertEqual(Expected, Result).
+
+research_02_02_test()->
+	Expected = {12,2},
+	Text = "Do you like 13 or 42?",
+	Regex = "\\d+",
+	MP = re_tuner:mp(Regex),
+	Result = re_tuner:first_match_info(Text, MP),
+	?assertEqual(Expected, Result).
+
+research_02_03_test()->
+	Expected = nomatch,
+	Text = "Do you like 13 or 42?",
+	Regex = "\\d{3,}",
+	MP = re_tuner:mp(Regex),
+	Result = re_tuner:first_match_info(Text, MP),
+	?assertEqual(Expected, Result).	
 
 -endif.
 
