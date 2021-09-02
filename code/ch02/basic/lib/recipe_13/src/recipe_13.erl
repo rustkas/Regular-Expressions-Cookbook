@@ -29,7 +29,7 @@ The very <em>first</em> task is to find the beginning of a paragraph.
 <p>
 Then you have to find the end of the paragraph
 </p>
-\t",
+",
     Regex = "<p>.*?</p>",
     {ok, MP} = re:compile(Regex, [multiline, dotall]),
     {match, [Result]} = re:run(Text, MP, [{capture, first, list}]),
