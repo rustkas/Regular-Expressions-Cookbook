@@ -5,6 +5,7 @@
 %%
 -ifdef(TEST).
 
+
 -include_lib("eunit/include/eunit.hrl").
 
 subfilter(Text, OuterRegex, InnerRegex) when is_list(OuterRegex), is_list(InnerRegex) ->
@@ -45,7 +46,7 @@ research_test_() ->
 	   fun research_01_01_01/1,
 	   fun research_01_02_01/1,
 	   fun research_01_03_01/1,
-	   fun research_02_test/1]}}.
+	   fun research_02_01_test/1]}}.
 
 
 build_text_and_expectation()->
@@ -79,11 +80,11 @@ research_01({Text, Expected, OuterRegex, InnerRegex})->
 	%?debugFmt("~p",[MatchResult]),
 	
 	FullInnerMatchResult = [],
-	InnerFunction = fun Fun (MatchResult, List)-> 
-	      case MatchResult of 
+	InnerFunction = fun Fun (StringList, List)-> 
+	      case StringList of 
 		      [] -> List;
 		      _ -> 
-	              [Head|Rest] = MatchResult,
+	              [Head|Rest] = StringList,
 		          case re_tuner:all_match(Head, InnerMP) of
                       nomatch -> Fun(Rest, List);
 			          InnerMatchResult-> 
@@ -132,7 +133,7 @@ research_01_03_01({_Text, _Expected, OuterRegex, InnerRegex})->
 	Result = re_tuner:subfilter(Text, OuterMP, InnerMP),
 	?_assertEqual(Expected, Result).	
 
-research_02_test({Text, Expected, _OuterRegex, _InnerRegex})->
+research_02_01_test({Text, Expected, _OuterRegex, _InnerRegex})->
 	Regex = "\\d+(?=(?:(?!<b>).)*</b>)",
 	MP = re_tuner:mp(Regex),
 	Result = re_tuner:all_match(Text, MP),

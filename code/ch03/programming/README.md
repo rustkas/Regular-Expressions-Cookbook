@@ -22,6 +22,7 @@ An OTP application
 	$ rebar3 eunit -m recipe_11
 	$ rebar3 eunit -m recipe_12
 	$ rebar3 eunit -m recipe_13
+	$ rebar3 eunit -m match_chain_function
 	$ rebar3 eunit -m recipe_14
 	$ rebar3 eunit -m recipe_15
 	$ rebar3 eunit -m recipe_16
