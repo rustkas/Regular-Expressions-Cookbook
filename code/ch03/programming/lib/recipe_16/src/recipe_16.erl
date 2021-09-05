@@ -106,12 +106,40 @@ research_03_test0()->
 	?assertEqual(Expected, Result).
 
 
-%-type replace_fun(string(),[string()]) :: {string(), non_neg_integer()}.
-%-type replace_fun(string(),[string()]).
+-spec match_evaluator1(ReplaceFun, Text, Regex) -> Result
+   when ReplaceFun :: fun((FullString :: string(), MatchResult :: [string()]) -> (NewString :: string())),
+        Text :: string(),
+        Regex :: string(),
+        Result :: string().
 
+match_evaluator1(ReplaceFun, Text, Regex) ->
+	
+	MatchEvaluationFun = fun MatchEvaluator(FullString, EvaluationMP, Offset) ->
+	    RunResult = re:run(FullString, EvaluationMP,[{capture,first,index},{offset, Offset}]),
+		RunResultCheck = case RunResult of
+	        nomatch -> FullString;
+	        {match,[MatchResult]} -> ReplaceFun(FullString,MatchResult)
+	    end,
+		MatchEvaluationResult = case is_tuple(RunResultCheck) of
+		    true -> 
+			     {NewString, NewOffset} = RunResultCheck,
+				 MatchEvaluator(NewString, EvaluationMP, NewOffset);
+			_ -> RunResultCheck
+        end,
+	    MatchEvaluationResult
+    end,
+	
+	StartOffset = 0,
+	Result = MatchEvaluationFun(Text,Regex,StartOffset),
+	Result.
+
+
+
+-type do_action() :: fun((InputString :: string()) -> (NewString :: string())).
 
 -spec match_evaluator(DoAction, Text, Regex) -> Result
-   when DoAction :: function(),
+   when 
+		DoAction :: do_action(),
         Text :: string(),
 		Regex :: string()|tuple(),
 		Result :: string().
