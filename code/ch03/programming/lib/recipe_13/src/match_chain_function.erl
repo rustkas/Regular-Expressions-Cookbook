@@ -80,8 +80,8 @@ research_test_() ->
 	   fun research_01_02/1,
 	   fun research_01_03/1,
 	   fun research_01_01_01/1,
-	   fun research_01_02_01,
-	   fun research_01_03_01]}}.
+	   fun research_01_02_01/1,
+	   fun research_01_03_01/1]}}.
 
 
 research_01({Text, Expected, ListRegex})->
